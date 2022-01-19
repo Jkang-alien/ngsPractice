@@ -1,0 +1,457 @@
+---
+title: "NGS interpretation and reporting: in the view of pathologists"
+author: "Jun Kang"
+institute: "Catholic University of Korea"
+date: '2022 02 12 '
+draft: true
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: xaringan-themer.css
+    nature:
+      beforeInit: "macro.js"
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+bibliography: ACMG.bib
+csl: the-american-journal-of-human-genetics.csl
+---
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  #fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#1381B0",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "numeric",
+           cite.style = "numeric",
+           hyperlink = FALSE,
+           dashed = FALSE,
+           first.inits = TRUE,
+           no.print.fields = c("doi", "url", "isbn", "urldate"))
+ACMG <- ReadBib("./ACMG.bib", check = FALSE)
+```
+
+# Contents
+
+* Allele frequency
+* Variant pathogenecity
+
+---
+# Allele frequency
+
+---
+### Questions
+
+* Somatic vs germline
+* False positive or false negative (cut-off)
+* Driver vs passenger (ultra-hypermutation, POLE)
+* Tier
+
+---
+## Allele frequency
+
+* BRCA1 mutation: Positive - p.Glu649Ter (c.1945G>T)  
+* Variant allele frequency 63.84%  
+* Tumor cell percentage: 70%  
+* BRCA negative in blood sample
+
+---
+### Questions
+
+> Can we determine whether the variant is germline or somatic using allele frequency and tumor percentage in tumor only test?
+
+---
+### Questions
+> Is it possible **64% allele frequency** of somatic mutation?
+
+---
+class: center
+# Variant allele frequency in clinical tumor sample
+
+$$Allele \space frequency \approx Read \space count \space proportion$$
+
+---
+class: center, middle
+![](img/Allele_3.png)  
+
+---
+class: center
+# Somatic variant, Two copy, Tumor cellularity 50%
+
+![](img/Allele_4.png)  
+Variant allele frequency?
+
+---
+class: center
+
+## Germline variant, Heterozigosity, Two copy, Tumor cellularity 25%
+
+![](img/Allele_2.png)  
+Variant allele frequency?
+
+---
+class: center
+## Germline variant, Heterozigosity, Two copy, Tumor cellularity 50%
+
+![](img/Allele_1.png)  
+Variant allele frequency?
+
+---
+# Proposition
+
+Germline, homo | Germline, hetero | Somatic
+:-----: | :----: | :----------------------:
+ 100% |  50% |  half of tumor cellularity, $\le 50\%$
+
+---
+class: center
+## Germline variant, Heterozigosity, One copy, LOH, Tumor cellularity 50%
+
+![](img/Allele_5.png)  
+Variant allele frequency?
+
+---
+class: center
+## Germline variant, Heterozigosity, One copy, LOH, Tumor cellularity 25%
+
+![](img/Allele_6.png)  
+Variant allele frequency?
+
+---
+class: center
+### Somatic variant, One copy, LOH, Tumor cellularity 50%
+
+![](img/Allele_8.png)  
+Variant allele frequency?
+
+---
+class: center
+### Somatic variant, Amplification, Tumor cellularity 25%
+
+![:scale 50%](img/Allele_9.png)  
+Variant allele frequency?
+
+
+---
+# Variant allele frequency in clinical tumor sample
+
+* Germline vs somatic  
+* Tumor cell proportion  
+* Loss of heterozygosity 
+* Copy number  
+
+---
+# Allele frequency in Somatic vs Germline in tumor only sample
+
+* BRCA1 mutation: Positive - p.Glu649Ter (c.1945G>T)  
+* Variant allele frequency 63.84%  
+* Tumor cell percentage: 70%  
+
+---
+# Allele frequency fomulas `r Citep(ACMG, "sun_2018_computational_ploscomputationalbiology")`
+
+$AF_{germline}$ $=$ ${pV+1-p} \over {pC+2(1-p)}$  
+$AF_{somatic}$ $=$ $pV \over pC+2(1-p)$ 
+
+* Given copy number (C)
+* Variant allele count (V)
+* Sample purity (p)
+* Variant status (somatic or germline)
+
+---
+# Limited information
+
+What we know | What we don't know
+:-------------:|:-----------------:
+Tumor cell percentage | Copy number
+Variant allele frequency  | LOH
+
+---
+# Allele frequency 
+
+* BRCA1 mutation: Positive - p.Glu649Ter (c.1945G>T)  
+* Variant allele frequency 63.84%  
+* Tumor cell percentage: 70% -> 80%  
+* Somatic (supposed)  
+* LOH (supposed)  
+* One copy (supposed)  
+
+---
+class: center
+## Allele frequency 
+
+![:scale 50%](img/Allele_12.png)
+
+$AF_{somatic}$ $=$ $pV \over pC+2(1-p)$ $= 0.67$
+```{r, results='hide'}
+(0.8*1)/(0.8*1 + 2*(1-0.8))
+```
+         
+---
+# Allele frequency 
+
+* BRCA1 mutation: Positive - p.Glu649Ter (c.1945G>T)  
+* Variant allele frequency 63.84%  
+* Tumor cell percentage: 70% -> 60%  
+* Germline (supposed)  
+* LOH (supposed)  
+* One copy (supposed)  
+
+---
+class: center
+## Allele frequency 
+
+![:scale 50%](img/Allele_13.png)
+
+$AF_{germline}$ $=$ ${pV+1-p} \over {pC+2(1-p)}$ $= 0.71$
+```{r, results='hide', echo=FALSE}
+(0.6*1+1-0.6)/(0.6*1 + 2*(1-0.6))
+```
+
+---
+#  Strand bias
+
+$$Allele \space frequency \not\approx Read \space count \space proportion$$
+
+---
+# Variant pathogenecity
+
+---
+# Question  
+* 76/M, Lung adenocarcinoma  
+* NM_000059.3(BRCA2):c.5683G>A (p.Glu1895Lys)
+
+---
+class: my-one-page-font
+
+>This sequence change replaces glutamic acid with lysine at codon 1895 of the BRCA2 protein (p.Glu1895Lys). The glutamic acid residue is weakly conserved and there is a small physicochemical difference between glutamic acid and lysine. This variant is present in population databases (rs146351301, ExAC 0.009%). This variant has been reported in individuals affected with breast cancer (PMID: 25682074, 20104584, 27257965, 28664449). In the literature, this variant is also known as 5911G>A. ClinVar contains an entry for this variant (Variation ID: 142307). Algorithms developed to predict the effect of missense changes on protein structure and function output the following: SIFT: "Tolerated"; PolyPhen-2: "Benign"; Align-GVGD: "Class C0". The lysine amino acid residue is found in multiple mammalian species, suggesting that this missense change does not adversely affect protein function. These predictions have not been confirmed by published functional studies and their clinical significance is uncertain. In summary, the available evidence is currently insufficient to determine the role of this variant in disease. Therefore, it has been classified as a Variant of Uncertain Significance.
+
+`r tufte::quote_footer('Sherloc Invitae')`
+
+---
+class: my-one-page-font
+
+```{r ionTorrent, eval=TRUE, echo=FALSE}
+library(tidyverse)
+brcaIT <- readr::read_csv("brcaIonTorrent.csv", col_names = FALSE)
+
+brcaIT %>%
+  rename(Name = X1, Value = X2) %>%
+  filter(Value != "NA") %>%
+  DT::datatable(options=list(autoWidth = TRUE,
+                pageLength = 8,
+                searching = FALSE,
+                scrollX = TRUE),
+                fillContainer = TRUE)
+
+```
+---
+## Standards and Guidelines for the Interpretation of Sequence Variants
+
+* To describe variants identified in Mendelian disorders  
+* American College of Medical Genetics and Genomics (ACMG) `r Citep(ACMG, "richards_2015_standards_genetmeda")`  
+* ENIGMA BRCA1/2 Gene Variant Classification Criteria  
+* International Agency for Research on Cancer (IARC)  
+
+---
+# Categories of interpretation of variants
+
+* Pathogenic  
+* Likely-pathogenic  
+* Uncertain (VUS)  
+* Likely-benign  
+* Benign  
+
+---
+# Let's guess the evidences  
+
+---
+# Famly pedigree
+
+![](ACMG-figure/pedigree.jpg)
+
+---
+# Segregation data (BS1, PP1)  
+
+* Caveat: linkage disequilibrium  
+* Penetration rate  
+* Difficult statistical evaluation  
+
+---
+# Population data
+
+![:scale 120%](ACMG-figure/gnomad.jpg)
+
+---
+# Population data  
+
+* 5%: benign stand alone (BA1)  
+* 0.5-5% (BS1)  
+* The first time observed variant! (Absent in population DB, PM2)  
+
+---
+# Null variant  
+
+* Frameshift, Nonsense, canonical +-1 or 2 splicing site, initiation codon
+* Caveat: LOF variants at the extreme 3′ end of a gene  
+* Caveat: presence of multiple transcripts  
+
+---
+# Computational (in silico) data  
+
+* PolyPhen2, SIFT, MutationTaster, etc  
+* Mutational hot spot and/or critical and wellestablished (PM1)  
+* Protein length changes due to in-frame deletions/insertions and stop losses functional domain (PM4 BP3)  
+* Novel missense at the same position (PM5)
+
+---
+# Other evidence  
+
+* de novo variants (PS2 PM6)
+* Functional studies (PS3 BS3)
+* Allelic data (BP2 PM3)  
+
+---
+# Evidences of interpretation
+
+* Population data  
+* Computational data  
+* Functional data  
+* Segregation data  
+* De novo data  
+* Allele data  
+* Other databases  
+* Other data  
+
+---
+##### 27 variant attributes
+
+![:scale 60%](img/acmg.png)
+---
+class: small-font
+# Characteristics of BRCA1/2  
+
+* LOF known mechanism of disease (for PVS1)  
+* Mode of inheritance (for PM3/BP2)
+  * AD/AR (BRCA2)
+* Missense pathogenic (for PP2/BP1)  
+  * BRCA2 1%  
+* Hot spot or critical/well-established functional domain (for PM1)
+  * BRCA2, Helical (2479-2667), OB (2670-2799 and 3052-3190), Tower (2831-2872)  
+
+---
+class: small-font
+## NM_000059.3(BRCA2):c.5683G>A (p.Glu1895Lys)
+
+* LOF known mechanism of disease (for PVS1)  
+* Mode of inheritance (for PM3/BP2)
+  * AD/AR (BRCA2)
+* Missense pathogenic (for PP2/**BP1**)  
+  * **BRCA2 1%**  
+* Hot spot or critical/well-established functional domain (for PM1)
+  * BRCA2, Helical (2479-2667), OB (2670-2799 and 3052-3190), Tower (2831-2872)  
+
+---
+### Characteristics of varant (NM_000059.3(BRCA2):c.5683G>A (p.Glu1895Lys))  
+
+* ClinVar (Uncertain significance (Last evaluated: Nov 1, 2015)) (PP5, BP6)
+* Population AF: $8.29e^{-06}$ (PM2, BA1, BS1)
+* Insilico SIFT 1.0, phyloP -0.72, PolyPhen-2 0.004 **BP4**  
+
+---
+# Functional assay (BS3)
+
+* Findlay (2018) Nature 562: 217 PubMed: 30209399
+* Guidugli (2013) Cancer Res 73: 265 PubMed: 23108138  
+* Biswas (2011) Blood 118: 2430 PubMed: 21719596  
+* Becker (2012) Breast Cancer Res Treat 135: 167 PubMed: 22729890   
+
+---
+class: my-one-page-font
+
+>This sequence change replaces glutamic acid with lysine at codon 1895 of the BRCA2 protein (p.Glu1895Lys). The glutamic acid residue is weakly conserved and there is a small physicochemical difference between glutamic acid and lysine. This variant is present in population databases (rs146351301, ExAC 0.009%). This variant has been reported in individuals affected with breast cancer (PMID: 25682074, 20104584, 27257965, 28664449). In the literature, this variant is also known as 5911G>A. ClinVar contains an entry for this variant (Variation ID: 142307). Algorithms developed to predict the effect of missense changes on protein structure and function output the following: SIFT: "Tolerated"; PolyPhen-2: "Benign"; Align-GVGD: "Class C0". The lysine amino acid residue is found in multiple mammalian species, suggesting that this missense change does not adversely affect protein function. These predictions have not been confirmed by published functional studies and their clinical significance is uncertain. In summary, the available evidence is currently insufficient to determine the role of this variant in disease. Therefore, it has been classified as a Variant of Uncertain Significance.
+
+`r tufte::quote_footer('Sherloc Invitae')`
+
+---
+# BRCA2 c.10150C>T p.Arf3384Ter
+
+---
+## KOBRA `r Citep(ACMG, "kang_2015_prevalence_breastcancerrestreat")`
+
+![](KOBRA_head.png)
+![](KOBRA.png)
+
+---
+## End truncation
+
+![](BRCA2.png)
+---
+# HUMAN MUTATION Mutation in Brief 31: E 1200-E1240 (2010) Online
+
+Finally, three sequence variants – BRCA2 c.9976A>T (BIC: K3326X), c.10095delCins11 (BIC: 10323delCins11) and c.10150C>T (BIC: **R3384X**) predicted to result in protein truncation were ruled as exceptions that **could not be classified** because of their **location near the 3´-end** and possibly dispensable part of the gene.
+
+---
+# Clinvar
+
+BRCA2 c.9976A>T (p.Lys3326*) variant, located upstream of this variant and also in the last exon of the gene, is a known benign variant.
+
+---
+# Conclusions
+* Allele frequency
+* ACMG guideline  
+
+---
+class: my-one-page-font
+# References
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(ACMG)
+```
+
+<style type="text/css">
+.remark-slide-content {
+    font-size: 24px;
+    padding: 1em 4em 1em 4em;
+}
+
+.my-one-page-font {
+  font-size: 18px;
+}
+
+.beginners{
+visibility: hidden;
+}
+
+.intermediate{
+visibility: hidden;
+}
+
+.advanced{
+visibility: visible;
+}
+ {
+    max-width: 100%;
+}
+</style>

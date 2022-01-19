@@ -1,0 +1,63 @@
+% Frequency,33.91
+3'/5' Imbalance,
+AMAF,
+Allele Coverage,"G=1263, A=648"
+Allele Ratio,"G=0.6609, A=0.3391"
+Amino Acid Change,p.Glu1895Lys
+CNV Confidence,
+CNV Precision,
+COSMIC/NCBI,
+ClinVar,Uncertain significance
+Coding,c.5683G>A
+Codon,AAG
+Copy Number,
+Coverage,1911
+CytoBand,
+DGV,
+Detection,Present
+DrugBank,
+EMAF,
+ExAC AAF,0
+ExAC EAAF,0
+ExAC EFAF,0
+ExAC ENFAF,0
+ExAC GAF,8.29E-06
+ExAC LAF,8.68E-05
+ExAC OAF,0
+ExAC SAAF,0
+Exon,11
+GMAF,
+Gene Ontology,BRCA2-MAGE-D1 complex ...(51)
+Genes,BRCA2
+Genotype,G/A
+Grantham,56
+Homopolymer Length,1
+Info,
+Length,1
+Location,exonic
+Locus,chr13:32914175
+MAF,0
+No Call Reason,
+Observed Allele,A
+Oncomine Gene Class,
+Oncomine Variant Class,
+Original Pos,
+PFAM,BRCA2 repeat
+Phred QUAL Score,3405.69
+PhyloP,-0.72
+PolyPhen,0.004
+Read Counts,
+Read Counts Per Million,
+Ref,G
+Ref+/Ref-/Var+/Var-,"G=671/592, A=368/280"
+SIFT,1
+Strand,+
+Tiles,
+Transcript,NM_000059.3
+Type,SNV
+UCSC Common SNPs,
+Variant Effect,missense
+Variant ID,
+Variant Name,
+dbSNP,rs146351301
+p-value,0.00001
