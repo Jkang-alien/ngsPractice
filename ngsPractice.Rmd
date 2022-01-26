@@ -3,7 +3,6 @@ title: "NGS interpretation and reporting: in the view of pathologists"
 author: "Jun Kang"
 institute: "Catholic University of Korea"
 date: '2022 02 12 '
-draft: true
 output:
   xaringan::moon_reader:
     self_contained: true
@@ -36,7 +35,9 @@ library(xaringanthemer)
 style_duo_accent(
   primary_color = "#1381B0",
   secondary_color = "#FF961C",
-  inverse_header_color = "#FFFFFF"
+  inverse_header_color = "#FFFFFF",
+  text_font_family =  "Noto Sans Korean",
+  header_font_family = "Noto Sans Korean"
 )
 ```
 
@@ -57,8 +58,26 @@ ACMG <- ReadBib("./ACMG.bib", check = FALSE)
 * Allele frequency
 * Variant pathogenecity
 
----
-# Allele frequency
+???
+* 발견된 변이에 대한 평가를 하고 보고서에 변이에 대한 임상적 의미를 기록하게 됩니다.
+* 변이에 대한 종합적 판단을 위해서는 Bioinformatics에 대한 이해가 필요한 부분이 있습니다.
+* NGS 결과를 받아보면 variant 정보가 많이 있습니다. 
+* 임상적 상황과 맞추다 보면 발견된 variant에 대한 질문도 많다.
+
+* 질문에 답할 때 allele frequency 가 참고 되는 경우가 많이 있습니다. 
+* 예를 들면
+  + Somatic vs germline
+  + False positive
+  + Allele specific copy number (LOH)
+* 이번 시간에는 첫번째로 Allele frequency가 어떻게 나오게 되는지 이해하고자 합니다.
+
+* Pathogenecity
+  + not all variants has same effect
+  + benign vs pathogenic
+  + not all variant pathogenecity stratiforword
+  
+* 두 번째로는 tumor suppressor gene의 변이는 유전자 기능이상을 발생하는지 확인이 필요합니다. 
+* 유전자 기능 변화가 변이 별로 다르기 때문에 어떠한 기준으로  변이의 병원성 여부를 확인하는 지 알아보고자 합니다. 
 
 ---
 ### Questions
@@ -68,6 +87,10 @@ ACMG <- ReadBib("./ACMG.bib", check = FALSE)
 * Driver vs passenger (ultra-hypermutation, POLE)
 * Tier
 
+???
+* 발견된 변이들을 보게 되면 다음과 같은 질문들을 하게 됩니다. 
+* 이 경우 allele freqency를 먼저 확인해 보면 판단에 도움이 됩니다.
+
 ---
 ## Allele frequency
 
@@ -76,20 +99,36 @@ ACMG <- ReadBib("./ACMG.bib", check = FALSE)
 * Tumor cell percentage: 70%  
 * BRCA negative in blood sample
 
+???
+ 
+난소암 환자에서 BRCA1 변이이고 stop codon을 만드는 nonsense variant입니다. nonsense variant이기 때문에 pathogenic varaint로 생각됩니다. 
+변이 allele frequency는 63%이고 병리의사가 측정한 종양세포 비율은 70%입니다. 
+환자는 혈액 BRCA 검사에서 음성이기 때문에 종양검체에서 시행한 NGS에서 발견된 이 변이는 germline이 아니라 somatic으로 생각됩니다. 
+실제로 임상 선생님으로부터 이 변이에 대한 문의를 받았습니다.
+
+---
+### Questions
+> Is it possible **64% allele frequency** of somatic mutation?
+
+???
+질문은 allele frequency가 63%로 50%에 가까운데 somatic varaint일 수 있느냐라는 것입니다. 
+
 ---
 ### Questions
 
 > Can we determine whether the variant is germline or somatic using allele frequency and tumor percentage in tumor only test?
 
----
-### Questions
-> Is it possible **64% allele frequency** of somatic mutation?
+???
+질문을 바꿔보면 allele freqeuncy로 tumor only NGS 검사에서 germline과 somatic을 구분할 수 있느냐 입니다.  
 
 ---
 class: center
 # Variant allele frequency in clinical tumor sample
 
 $$Allele \space frequency \approx Read \space count \space proportion$$
+???
+variant allele frequency는 무엇일까요?
+
 
 ---
 class: center, middle
@@ -97,7 +136,7 @@ class: center, middle
 
 ---
 class: center
-# Somatic variant, Two copy, Tumor cellularity 50%
+### Somatic variant, Two copy, Tumor cellularity 50%
 
 ![](img/Allele_4.png)  
 Variant allele frequency?
@@ -105,14 +144,14 @@ Variant allele frequency?
 ---
 class: center
 
-## Germline variant, Heterozigosity, Two copy, Tumor cellularity 25%
+### Germline variant, Heterozigosity, Two copy, Tumor cellularity 25%
 
 ![](img/Allele_2.png)  
 Variant allele frequency?
 
 ---
 class: center
-## Germline variant, Heterozigosity, Two copy, Tumor cellularity 50%
+### Germline variant, Heterozigosity, Two copy, Tumor cellularity 50%
 
 ![](img/Allele_1.png)  
 Variant allele frequency?
@@ -126,14 +165,14 @@ Germline, homo | Germline, hetero | Somatic
 
 ---
 class: center
-## Germline variant, Heterozigosity, One copy, LOH, Tumor cellularity 50%
+### Germline variant, Heterozigosity, One copy, LOH, Tumor cellularity 50%
 
 ![](img/Allele_5.png)  
 Variant allele frequency?
 
 ---
 class: center
-## Germline variant, Heterozigosity, One copy, LOH, Tumor cellularity 25%
+### Germline variant, Heterozigosity, One copy, LOH, Tumor cellularity 25%
 
 ![](img/Allele_6.png)  
 Variant allele frequency?
@@ -204,7 +243,8 @@ class: center
 ![:scale 50%](img/Allele_12.png)
 
 $AF_{somatic}$ $=$ $pV \over pC+2(1-p)$ $= 0.67$
-```{r, results='hide'}
+
+```{r, results='hide', echo=FALSE}
 (0.8*1)/(0.8*1 + 2*(1-0.8))
 ```
          
@@ -250,7 +290,6 @@ class: my-one-page-font
 `r tufte::quote_footer('Sherloc Invitae')`
 
 ---
-class: my-one-page-font
 
 ```{r ionTorrent, eval=TRUE, echo=FALSE}
 library(tidyverse)
@@ -259,11 +298,11 @@ brcaIT <- readr::read_csv("brcaIonTorrent.csv", col_names = FALSE)
 brcaIT %>%
   rename(Name = X1, Value = X2) %>%
   filter(Value != "NA") %>%
-  DT::datatable(options=list(autoWidth = TRUE,
+  DT::datatable(options=list(autoWidth = FALSE,
                 pageLength = 8,
                 searching = FALSE,
                 scrollX = TRUE),
-                fillContainer = TRUE)
+                fillContainer = FALSE)
 
 ```
 ---
@@ -289,7 +328,7 @@ brcaIT %>%
 ---
 # Famly pedigree
 
-![](ACMG-figure/pedigree.jpg)
+![:scale 80%](ACMG-figure/pedigree.jpg)
 
 ---
 # Segregation data (BS1, PP1)  
@@ -301,7 +340,7 @@ brcaIT %>%
 ---
 # Population data
 
-![:scale 120%](ACMG-figure/gnomad.jpg)
+![:scale 80%](ACMG-figure/gnomad.jpg)
 
 ---
 # Population data  
@@ -400,13 +439,13 @@ class: my-one-page-font
 ---
 ## KOBRA `r Citep(ACMG, "kang_2015_prevalence_breastcancerrestreat")`
 
-![](KOBRA_head.png)
+![:scale 80%](KOBRA_head.png)
 ![](KOBRA.png)
 
 ---
 ## End truncation
 
-![](BRCA2.png)
+![:scale 80%](BRCA2.png)
 ---
 # HUMAN MUTATION Mutation in Brief 31: E 1200-E1240 (2010) Online
 
