@@ -59,23 +59,17 @@ ACMG <- ReadBib("./ACMG.bib", check = FALSE)
 * Variant pathogenecity
 
 ???
-* 발견된 변이에 대한 평가를 하고 보고서에 변이에 대한 임상적 의미를 기록하게 됩니다.
+* 병리의사는 발견된 변이에 대한 평가를 하고 보고서에 변이에 대한 임상적 의미를 기록하게 됩니다.
 * 변이에 대한 종합적 판단을 위해서는 Bioinformatics에 대한 이해가 필요한 부분이 있습니다.
 * NGS 결과를 받아보면 variant 정보가 많이 있습니다. 
-* 임상적 상황과 맞추다 보면 발견된 variant에 대한 질문도 많다.
+* 그리고 임상적 상황과 맞추다 보면 발견된 variant에 대한 질문도 많이 있습니다
 
 * 질문에 답할 때 allele frequency 가 참고 되는 경우가 많이 있습니다. 
 * 예를 들면
   + Somatic vs germline
   + False positive
   + Allele specific copy number (LOH)
-* 이번 시간에는 첫번째로 Allele frequency가 어떻게 나오게 되는지 이해하고자 합니다.
-
-* Pathogenecity
-  + not all variants has same effect
-  + benign vs pathogenic
-  + not all variant pathogenecity stratiforword
-  
+* 이번 시간은 첫번째로 Allele frequency가 어떻게 나오게 되는지 이해하고자 합니다.
 * 두 번째로는 tumor suppressor gene의 변이는 유전자 기능이상을 발생하는지 확인이 필요합니다. 
 * 유전자 기능 변화가 변이 별로 다르기 때문에 어떠한 기준으로  변이의 병원성 여부를 확인하는 지 알아보고자 합니다. 
 
@@ -100,8 +94,8 @@ ACMG <- ReadBib("./ACMG.bib", check = FALSE)
 * BRCA negative in blood sample
 
 ???
- 
-난소암 환자에서 BRCA1 변이이고 stop codon을 만드는 nonsense variant입니다. nonsense variant이기 때문에 pathogenic varaint로 생각됩니다. 
+예를 보겠습니다.  
+난소암 환자에서 발견된 BRCA1 변이이고 stop codon을 만드는 nonsense variant입니다. nonsense variant이기 때문에 pathogenic varaint로 생각됩니다. 
 변이 allele frequency는 63%이고 병리의사가 측정한 종양세포 비율은 70%입니다. 
 환자는 혈액 BRCA 검사에서 음성이기 때문에 종양검체에서 시행한 NGS에서 발견된 이 변이는 germline이 아니라 somatic으로 생각됩니다. 
 실제로 임상 선생님으로부터 이 변이에 대한 문의를 받았습니다.
@@ -128,11 +122,17 @@ class: center
 $$Allele \space frequency \approx Read \space count \space proportion$$
 ???
 variant allele frequency는 무엇일까요?
-
+allele의 read count의 비율입니다. 
+여러 예를 통해서 allele frequency의 의미에 대해서 알아보고자 합니다. 
 
 ---
 class: center, middle
 ![](img/Allele_3.png)  
+???
+동그란건 종양세포 타원형은 정상세포입니다. 
+종양세포의 비율은 25% 1/4입니다. 
+각각 두개의 allele이 있고 종양세포에만 변이가 있는 somatic 변이인 경우 variant allele frequency는 어떻게 될까요?
+전체 allele은 8개이고 그 중 하나만 변이이니까 15.5% 1/8 이 됩니다. 
 
 ---
 class: center
@@ -140,6 +140,12 @@ class: center
 
 ![](img/Allele_4.png)  
 Variant allele frequency?
+
+???
+다음은 이전과 같지만 종양세포 비율이 50%로 두배가 되었습니다. 
+이 varaint allele frequency는 네개중 하나 25%입니다. 
+두 예에서 variant allele frequency는 종양세포 비율의 절반으로 생각할 수 있습니다. 
+종양세포의 두 allele중 하나만 변이가 생겼기 때문에 절반으로 볼 수 있습니다. 
 
 ---
 class: center
@@ -149,6 +155,10 @@ class: center
 ![](img/Allele_2.png)  
 Variant allele frequency?
 
+???
+이 경우는 종양세포 비율이 25%인데
+germline variant 인 경우 모든 세포의 두 allele중 절반에서 변이가 있기 때문에 50%가 됩니다. 
+
 ---
 class: center
 ### Germline variant, Heterozigosity, Two copy, Tumor cellularity 50%
@@ -156,12 +166,18 @@ class: center
 ![](img/Allele_1.png)  
 Variant allele frequency?
 
+???
+종양세포 비율이 커져도 50%가 됩니다. 
 ---
 # Proposition
 
 Germline, homo | Germline, hetero | Somatic
 :-----: | :----: | :----------------------:
  100% |  50% |  half of tumor cellularity, $\le 50\%$
+ 
+???
+흔히 germline variant allele frequency는 50% somatic variant allele frequency는 종양세포 비율의 절반이라고 말 하기도 합니다. 
+하지만 이런 경우는 추가 조건이 필요합니다. 
 
 ---
 class: center
@@ -170,6 +186,14 @@ class: center
 ![](img/Allele_5.png)  
 Variant allele frequency?
 
+???
+종양세포는 allele이 두개가 아닌 allele copy number를 가질 수 있습니다. 
+이 경우 loss of heterozygosity로 정상 allele이 deletion 되고 variant copy만 가지고 있는
+tumor suppressor gene의 종양발생 기전으로 알려진 two hit theory에 해당하는 경우입니다. 
+germline 변이가 있는 경우 LOH가 동반되어 종양이 생기게 됩니다. 
+이 경우 germline 변이이지만 allele frequency는 50%가 아니라  66%이 됩니다. 
+종양세포에서 정상 allele이 없어졌기 때문입니다. 
+
 ---
 class: center
 ### Germline variant, Heterozigosity, One copy, LOH, Tumor cellularity 25%
@@ -177,12 +201,19 @@ class: center
 ![](img/Allele_6.png)  
 Variant allele frequency?
 
+???
+이 경우는 상황은 같지만 종양세포 비율이 25%로 줄어 variant allele frequency는 약간 줄어 57%이 되었습니다. 
+
 ---
 class: center
 ### Somatic variant, One copy, LOH, Tumor cellularity 50%
 
 ![](img/Allele_8.png)  
 Variant allele frequency?
+
+???
+somatic variant 에 LOH가 동반되면 어떻게 될까요?
+이 경우 9개중 3개로 33%인데 종양비율의 절반인 25% 보다 높습니다. 
 
 ---
 class: center
@@ -192,6 +223,9 @@ class: center
 Variant allele frequency?
 
 
+???
+LOH가 아니라 amplification이 동반되면 더 많이 올라가게 됩니다. 
+
 ---
 # Variant allele frequency in clinical tumor sample
 
@@ -200,12 +234,19 @@ Variant allele frequency?
 * Loss of heterozygosity 
 * Copy number  
 
+???
+variant allele frequency는 gerline인지 somatic인지 ....에 따라 결정되게 됩니다. 
+
 ---
 # Allele frequency in Somatic vs Germline in tumor only sample
 
 * BRCA1 mutation: Positive - p.Glu649Ter (c.1945G>T)  
 * Variant allele frequency 63.84%  
 * Tumor cell percentage: 70%  
+
+???
+처음 실제 발견된 변이를 다시 살펴보면
+BRCA1 유전자는 tumor suppressor gene이며 난소암에서 LOH가 있을 것으로 생각됩니다. 그러면 variant allele frequency가 50%가 넘는 것을 설명할 수 있습니다. 하지만 이게 germline인지 somatic인지 알 수 있을까요?
 
 ---
 # Allele frequency fomulas `r Citep(ACMG, "sun_2018_computational_ploscomputationalbiology")`
@@ -218,6 +259,9 @@ $AF_{somatic}$ $=$ $pV \over pC+2(1-p)$
 * Sample purity (p)
 * Variant status (somatic or germline)
 
+???
+allele frequency를 공식으로 만들어 보면 이렇게 됩니다. 
+
 ---
 # Limited information
 
@@ -225,6 +269,9 @@ What we know | What we don't know
 :-------------:|:-----------------:
 Tumor cell percentage | Copy number
 Variant allele frequency  | LOH
+
+???
+종양세포비율과 variant allele frequency는 알 고 있고 copy number와 LOH는 모른다고 가정하면
 
 ---
 # Allele frequency 
@@ -236,6 +283,8 @@ Variant allele frequency  | LOH
 * LOH (supposed)  
 * One copy (supposed)  
 
+???
+이 경우 다음과 같이 가정하고 variant allele frequency를 계산해보겠습니다. 
 ---
 class: center
 ## Allele frequency 
@@ -248,6 +297,9 @@ $AF_{somatic}$ $=$ $pV \over pC+2(1-p)$ $= 0.67$
 (0.8*1)/(0.8*1 + 2*(1-0.8))
 ```
          
+???
+계산된 allele frequency와 실제 NGS 값과 비슷합니다. 
+
 ---
 # Allele frequency 
 
@@ -258,6 +310,8 @@ $AF_{somatic}$ $=$ $pV \over pC+2(1-p)$ $= 0.67$
 * LOH (supposed)  
 * One copy (supposed)  
 
+???
+이번에는 종양세포 비율을 60%로 낮추고 germline으로 가정하고 계산을 해보겠습니다. 
 ---
 class: center
 ## Allele frequency 
@@ -269,19 +323,40 @@ $AF_{germline}$ $=$ ${pV+1-p} \over {pC+2(1-p)}$ $= 0.71$
 (0.6*1+1-0.6)/(0.6*1 + 2*(1-0.6))
 ```
 
----
-#  Strand bias
+???
+71%로 실제값 63%와 차이가 있지만 비슷한 값이 나왔습니다. 
+실제로는 정확한 종양세포 비율과 allele specific copy number를 알 지 못하기 때문에 단순히 variant alllele frequency만으로 germline과 somatic을 구분하기는 어렵습니다. 
 
-$$Allele \space frequency \not\approx Read \space count \space proportion$$
+---
+#  Caveat
+
+* Strand bias
+* Heterogeneity
+
+???
+strand bias 나 heterogeneity가 있는 경우에는 allele frequency해석에 주의가 필요합니다. 
+
+---
+# Allele specific copy number
+
+![](img/rawProfile)
+
+???
+반대로 allele frequency와 DNA양인 coverage를 알고 있다면 allle specific copy number를 추정할 수 있습니다. 
 
 ---
 # Variant pathogenecity
+
+???
+이제부터는 variant pathogenecity를 어떻게 판단하는지 살펴보겠습니다. 
 
 ---
 # Question  
 * 76/M, Lung adenocarcinoma  
 * NM_000059.3(BRCA2):c.5683G>A (p.Glu1895Lys)
 
+???
+76세 폐암 환자에서 BRCA2 missense variant가 발견되었되었습니다. 
 ---
 class: my-one-page-font
 
@@ -289,6 +364,8 @@ class: my-one-page-font
 
 `r tufte::quote_footer('Sherloc Invitae')`
 
+???
+Clinvar에서 이 변이 평가 기록중 invitae에서 작성한 걸 보보겠습니다. BRCA2단백질 코돈 1895의 glutamic acid가 lysine으로 바뀌었고 glutamic acid는 weakly conserve 되었고 population에서 0.009%에서 발견됩니다. 유방암환자에서 발견 된적이 있고 in-silico program prediction은 benign으로 예측 되었습니다. functional study는 시행되지 않았습니다. 이런 증거들을 바탕으로 invitae는 variant of uncertain significance로 평가 하였습니다. 
 ---
 
 ```{r ionTorrent, eval=TRUE, echo=FALSE}
@@ -305,13 +382,20 @@ brcaIT %>%
                 fillContainer = FALSE)
 
 ```
+
+???
+이 자료는 vcf에서 확인 할 수 있고 NGS 결과 확인 프로그램에서도 기능이 제공되기도 해서 쉽게 확인 할 수 도 있습니다. 자료를 살펴보면 Invitae에서 평가하였던 근거 자료들 임을 알 수 있습니다. 
+
 ---
 ## Standards and Guidelines for the Interpretation of Sequence Variants
 
 * To describe variants identified in Mendelian disorders  
-* American College of Medical Genetics and Genomics (ACMG) `r Citep(ACMG, "richards_2015_standards_genetmeda")`  
+* **American College of Medical Genetics and Genomics (ACMG)** `r Citep(ACMG, "richards_2015_standards_genetmeda")`  
 * ENIGMA BRCA1/2 Gene Variant Classification Criteria  
 * International Agency for Research on Cancer (IARC)  
+
+???
+Mendelian disorder를 일으키는 변이인지 확인하는 목적이고 pathogenic variant를 가지면 유전성 질환으로 진단을 할 수 있습니다. 많은 hereditary cancer syndrome에 여러 tumor suppressor gene이 알려져 있고 이 경우 다양한 변이들이 유전질환의 원인 변이가 되고 이를 평가하는 것에 어려움이 많이 있습니다. 일관된 평가를 위해 pathogenesity를 평가하는 여러기준이 있지만 ACMG guideline을 소개하려고 합니다. 
 
 ---
 # Categories of interpretation of variants
@@ -322,26 +406,37 @@ brcaIT %>%
 * Likely-benign  
 * Benign  
 
+???
+다음과 같은 5가지 카테고리가 있습니다. 
+
 ---
 # Let's guess the evidences  
+???
+어떤 정보를 확인하면  변이가 단백질 기능 상실을 일으키는 지 알 수 있을까요?
 
 ---
 # Famly pedigree
 
 ![:scale 80%](ACMG-figure/pedigree.jpg)
+???
+우선 가계도를 생각해볼 수 있습니다. 가계 내 질병이 생긴 환자에서 해당변이가 더 자주 발견되면 pathogenic variant로 생각할 수 있습니다. 
 
 ---
 # Segregation data (BS1, PP1)  
 
-* Caveat: linkage disequilibrium  
-* Penetration rate  
-* Difficult statistical evaluation  
+* Caveat 
+  + linkage disequilibrium  
+  + Penetration rate  
+  + Difficult statistical evaluation  
 
+???
+하지만 다른 위치에 실제 pathogenic variant가 있고 발견된 변이가 같이 유전되는 linkage disequilibrium 이나 유전력이 낮은 경우 판단이 어렵습니다. 
 ---
 # Population data
 
 ![:scale 80%](ACMG-figure/gnomad.jpg)
-
+???
+다른 증거로는 population 정보가 있습니다. 대규모 집단 유전체 자료가 공개되어 있고 여기에서 common snp이라면 benign variant로 판단할 수 있습니다. 
 ---
 # Population data  
 
@@ -349,6 +444,8 @@ brcaIT %>%
 * 0.5-5% (BS1)  
 * The first time observed variant! (Absent in population DB, PM2)  
 
+???
+대규모 집단 유전체 자료에서 빈도가 5%이상인 common snp인 경우 benign variant로 판단할 수 있습니다. 
 ---
 # Null variant  
 
@@ -356,6 +453,8 @@ brcaIT %>%
 * Caveat: LOF variants at the extreme 3′ end of a gene  
 * Caveat: presence of multiple transcripts  
 
+???
+유전자의 기능 소실이 예상되는 Frameshift, Nonsense 등 null variant는 강력한 pathogenic variant의 증거가 됩니다.
 ---
 # Computational (in silico) data  
 
@@ -364,6 +463,8 @@ brcaIT %>%
 * Protein length changes due to in-frame deletions/insertions and stop losses functional domain (PM4 BP3)  
 * Novel missense at the same position (PM5)
 
+???
+변이의 기능 소실을 예측해주는 여러 프로그램 예측결과도 어느정도 증거로 생각할 수 있습니다. 
 ---
 # Other evidence  
 
@@ -371,6 +472,8 @@ brcaIT %>%
 * Functional studies (PS3 BS3)
 * Allelic data (BP2 PM3)  
 
+???
+그 외 다른 증거들로 ...
 ---
 # Evidences of interpretation
 
@@ -383,10 +486,15 @@ brcaIT %>%
 * Other databases  
 * Other data  
 
+ACMG guideline에서는 8가지 evidence category를 바탕으로 판단하게 됩니다. 
 ---
 ##### 27 variant attributes
 
 ![:scale 60%](img/acmg.png)
+
+???
+27 variant attributes가 있지만 실제로 판단이 가능한 항목들은 제한적입니다. 
+
 ---
 class: small-font
 # Characteristics of BRCA1/2  
@@ -398,6 +506,10 @@ class: small-font
   * BRCA2 1%  
 * Hot spot or critical/well-established functional domain (for PM1)
   * BRCA2, Helical (2479-2667), OB (2670-2799 and 3052-3190), Tower (2831-2872)  
+???
+실제 예를 살펴보겠습니다. 
+BRCA1/2 유전자의 특징을 확인하여 해당하는 항목들을 확인할 수 있습니다. 
+...
 
 ---
 class: small-font
@@ -410,6 +522,9 @@ class: small-font
   * **BRCA2 1%**  
 * Hot spot or critical/well-established functional domain (for PM1)
   * BRCA2, Helical (2479-2667), OB (2670-2799 and 3052-3190), Tower (2831-2872)  
+???
+이 중 missense variant인 점은 benign supporging evidence입니다. BP2가 benign supporting evidence의 약자입니다. 
+나머지 항목은 해당사항이 없습니다. 
 
 ---
 ### Characteristics of varant (NM_000059.3(BRCA2):c.5683G>A (p.Glu1895Lys))  
@@ -417,6 +532,8 @@ class: small-font
 * ClinVar (Uncertain significance (Last evaluated: Nov 1, 2015)) (PP5, BP6)
 * Population AF: $8.29e^{-06}$ (PM2, BA1, BS1)
 * Insilico SIFT 1.0, phyloP -0.72, PolyPhen-2 0.004 **BP4**  
+???
+다음 확인 항목들 중에서 insilico data도 benign supporting evidence입니다. 
 
 ---
 # Functional assay (BS3)
@@ -425,6 +542,8 @@ class: small-font
 * Guidugli (2013) Cancer Res 73: 265 PubMed: 23108138  
 * Biswas (2011) Blood 118: 2430 PubMed: 21719596  
 * Becker (2012) Breast Cancer Res Treat 135: 167 PubMed: 22729890   
+???
+Functional assay에서는 해당변이 자료를 찾을 수 없었습니다. 
 
 ---
 class: my-one-page-font
@@ -433,33 +552,49 @@ class: my-one-page-font
 
 `r tufte::quote_footer('Sherloc Invitae')`
 
+???
+이전에 보았던 invitae에서 시행한 variant interpretation을 보면 방금 했던 과정들은 설명하고 있습니다. 
+
+
 ---
 # BRCA2 c.10150C>T p.Arf3384Ter
+
+???
+이번에는 다른 변이를 생각해 보겠습니다. 
+이 변이는 BRCA2 단백질 2884 코돈에 stop codon이 생겨 nonsense variant 입니다. 
 
 ---
 ## KOBRA `r Citep(ACMG, "kang_2015_prevalence_breastcancerrestreat")`
 
 ![:scale 80%](KOBRA_head.png)
 ![](KOBRA.png)
+???
+한국인 유전성유방암 연구에서 pathogenic으로 발표되었습니다. 
 
 ---
 ## End truncation
 
 ![:scale 80%](BRCA2.png)
----
-# HUMAN MUTATION Mutation in Brief 31: E 1200-E1240 (2010) Online
 
-Finally, three sequence variants – BRCA2 c.9976A>T (BIC: K3326X), c.10095delCins11 (BIC: 10323delCins11) and c.10150C>T (BIC: **R3384X**) predicted to result in protein truncation were ruled as exceptions that **could not be classified** because of their **location near the 3´-end** and possibly dispensable part of the gene.
+???
+하지만 BRCA2 유전자를 보면 전체 아미노산 길이가 3418로 절단은 단백질 말단 3384 코돈에서 발생해서 실제 유전자 기능이상을 일으키지 않을 가능성도 있습니다. 
 
 ---
 # Clinvar
 
 BRCA2 c.9976A>T (p.Lys3326*) variant, located upstream of this variant and also in the last exon of the gene, is a known benign variant.
 
+???
+clinvar에서는 nonsense variant이지만 benign으로 분류하고 있습니다. 
+
 ---
 # Conclusions
 * Allele frequency
 * ACMG guideline  
+
+???
+지금까지 allele frequency와 ACMG guideline에 대해 말씀 드렸습니다. 
+감사합니다. 
 
 ---
 class: my-one-page-font
