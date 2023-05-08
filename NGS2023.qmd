@@ -1,29 +1,77 @@
 ---
 title: "NGS 2023"
-format: revealjs
+format: 
+  revealjs:
+    preview-links: auto
+    self-contained: true
 execute: 
   echo: false
   warning: false
 editor: visual
 ---
 
+## How to distinguish?
+
+-   Germline vs Somatic
+-   True variant or False
+
+## How reliable?
+
+-   Copy number change
+-   Arm-level CN
+-   BRCA1/2 exon deletion
+-   Tumor cellurarity
+-   HRD score
+-   Fusion imbalance
+
+## How good are the annotations?
+
+-   Variant pathogenesity
+-   Variant nomenclature
+-   Tier
+
+## Error
+
+-   PCR (primer) error
+-   Base calling error
+-   Allignment error
+-   Inaccurate estimate
+-   Filter out error
+
+## Manual inspection
+
+-   Allele frequency
+-   Coverage
+-   Strand bias
+-   Allignment
+-   Visualization
+-   Knowledgebase
+
+## Algorithm
+
+-   Maximum likelyhood estimation
+-   Basian
+-   Burrows--Wheeler transform
+-   Filters (No call)
+-   Allele-specific copy number analysis
+-   Knowledgebase
+
 ## OCA CNV
 
-## Gene Level CNV 
+## Gene Level CNV
 
-- Copy number estimates are made using a proprietary VCIB (Variability Control Informatics
-Baseline) algorithm
-  - Coverage based estimation
-  - Normalized constant coverage for each gene
-  
+-   Copy number estimates are made using a proprietary VCIB (Variability Control Informatics Baseline) algorithm
+    -   Coverage based estimation
+    -   Normalized constant coverage for each gene
+
 ## Adjustment with tumor cellularity
 
 $$f \times x + (1 - f) \times 2 = C $$
 
 $$x = (C - (1 - f) \times 2) / f$$
 
-- f: tumor cellularity
-- C: observed CN
+-   f: tumor cellularity
+-   C: observed CN
 
 ## Adjustment example (raw CN 3)
 
@@ -31,74 +79,9 @@ $$x = (C - (1 - f) \times 2) / f$$
 curve( (3 - (1-x) * 2) / x, xlim = c(0.1, 1.0),
        xlab="Tumor cellularity", ylab="Adjusted Copy number")
 ```
+
 ## Allele frequency table
-  
+
 ![](https://www.jkangpathology.com/slide/Allele/AF.png)
-
-## Full probability model
-
-.pull-left[
-$$
-\begin{aligned}
- r_i & \sim N\left(log_2 \frac{pC_i+2(1-p)}{p \psi+2(1-p)}, \sigma_{ri} \right)
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
- f_i & \sim N\left(\frac{pM_i+(1-p)}{pC_i+2(1-p)}, \sigma_{fi} \right)
-\end{aligned}
-$$
-
-$$\psi = \frac{\sum_{i}(l_iC_i) }{\sum_{i}(l_i)}$$
-]
-
-.pull-right[
-$r_i$: Median-normalized log-ratio coverage of all exons within $S_i$  
-$f_i$: MAF of SNPs within segment $S_i$  
-$p$: Tumor purity <br>
-$S_i$: Genomic segment <br>
-$l_i$: Length of $S_i$ <br>
-$C_i$: Copy number of $S_i$ <br>
-$M_i$: Copy number of minor alleles in $S_i$, $0 \leq M_i \leq S_i$ <br>
-$\psi$: Tumor ploidy of the sample
-]
-
-### Sequenza results
-
-```{r, echo=FALSE, out.width=500, out.height=500}
-library(tidyverse)
-segmentsResults <- read_delim(here::here("static/slide/scarHRD/TEST/test_segments.txt"), delim = '\t')
-segmentsResults <- segmentsResults %>%
-  mutate(across(where(is.numeric), ~ round(., digits = 1)))
-DT::datatable(segmentsResults,
-              options=list(autoWidth = FALSE,
-                           pageLength = 5,
-                           scrollX = TRUE), 
-              height = "300", 
-              width = "1000")
-```
-
----
-## Sequenza results
-```{r, echo=FALSE, out.width=500, out.height=500}
-magick::image_read_pdf(here::here("static/slide/scarHRD/TEST/Test_model_fit.pdf"), pages = 1, density = 500)
-```
-
----
-
-## Sequenza results
-```{r, echo=FALSE, out.width=1000, out.height=500}
-magick::image_read_pdf(here::here("static/slide/scarHRD/TEST/Test_genome_view.pdf"), pages = 1, density = 500)
-```
-
----
-
-## Sequenza results
-```{r, echo=FALSE, out.width=500, out.height=500}
-magick::image_read_pdf(here::here("static/slide/scarHRD/TEST/Test_CP_contours.pdf"), pages = 1, density = 500)
-```
-
-.footer[LPP: log-posterior probability]
 
 
